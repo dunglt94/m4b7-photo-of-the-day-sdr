@@ -10,7 +10,7 @@ import java.time.LocalDate;
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     private int point;
 
@@ -28,7 +28,7 @@ public class Comment {
         this.eventDate = LocalDate.now();
     }
 
-    public Comment(int id, int point, String author, String feedback, int likes) {
+    public Comment(Long id, int point, String author, String feedback, int likes) {
         this.id = id;
         this.point = point;
         this.author = author;
@@ -37,11 +37,11 @@ public class Comment {
         this.eventDate = LocalDate.now();
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

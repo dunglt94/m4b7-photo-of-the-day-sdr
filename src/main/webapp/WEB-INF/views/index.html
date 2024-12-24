@@ -46,7 +46,13 @@
     </form>
     <hr>
 </div>
-
+<div style="text-align: center">
+    <a class="btn btn-primary" th:if="${comments.hasPrevious()}"
+       th:href="@{/photo-of-the-day(page=${comments.number - 1})}">Previous</a>
+    <span th:text="${comments.number + 1}"></span> | <span th:text="${comments.totalPages}"></span>
+    <a class="btn btn-primary" th:if="${comments.hasNext()}"
+       th:href="@{/photo-of-the-day(page=${comments.number + 1})}">Next</a>
+</div>
 <footer th:insert="/layout :: footer"></footer>
 <script>
     let query = 'https://api.nasa.gov/planetary/apod?api_key=6bPEag9f2nKvPWx2TPVTVbhzJh7TZA18cd1NzzIg';

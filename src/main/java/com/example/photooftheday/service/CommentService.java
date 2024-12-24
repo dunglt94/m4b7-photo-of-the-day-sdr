@@ -3,9 +3,13 @@ package com.example.photooftheday.service;
 import com.example.photooftheday.model.Comment;
 import com.example.photooftheday.repository.ICommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CommentService implements ICommentService {
@@ -13,12 +17,22 @@ public class CommentService implements ICommentService {
     private ICommentRepository commentRepository;
 
     @Override
-    public List<Comment> findAll() {
+    public Iterable<Comment> findAll() {
         return commentRepository.findAll();
     }
 
     @Override
-    public Comment findById(int id) {
+    public Page<Comment> findAll(Pageable pageable) {
+        return commentRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<Comment> findByEventDate(LocalDate eventDate, Pageable pageable) {
+        return commentRepository.findByEventDate(eventDate, pageable);
+    }
+
+    @Override
+    public Optional<Comment> findById(Long id) {
         return commentRepository.findById(id);
     }
 
@@ -28,7 +42,7 @@ public class CommentService implements ICommentService {
     }
 
     @Override
-    public void delete(int id) {
-        commentRepository.delete(id);
+    public void delete(Long id) {
+        commentRepository.deleteById(id);
     }
 }

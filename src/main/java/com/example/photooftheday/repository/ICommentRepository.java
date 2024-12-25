@@ -12,5 +12,5 @@ import java.time.LocalDate;
 public interface ICommentRepository extends PagingAndSortingRepository<Comment, Long> {
     Page<Comment> findAll(Pageable pageable);
 
-    Page<Comment> findByEventDate(LocalDate eventDate, Pageable pageable);
+    Page<Comment> findByFeedbackDate(LocalDate feedbackDate, Pageable pageable);
 }

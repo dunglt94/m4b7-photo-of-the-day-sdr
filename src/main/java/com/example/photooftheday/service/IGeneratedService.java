@@ -1,5 +1,7 @@
 package com.example.photooftheday.service;
 
+import com.example.photooftheday.exception.BadWordsException;
+
 import java.util.Optional;
 
 public interface IGeneratedService<T> {
@@ -7,7 +9,7 @@ public interface IGeneratedService<T> {
 
     Optional<T> findById(Long id);
 
-    void save(T object);
+    void save(T object) throws BadWordsException;
 
     void delete(Long id);
 

@@ -1,5 +1,6 @@
 package com.example.photooftheday.service;
 
+import com.example.photooftheday.exception.BadWordsException;
 import com.example.photooftheday.model.Comment;
 import com.example.photooftheday.repository.ICommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,11 +9,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
 public class CommentService implements ICommentService {
+    private final static String[] BAD_WORD = {"ugly", "trash"};
+
     @Autowired
     private ICommentRepository commentRepository;
 
@@ -27,8 +30,8 @@ public class CommentService implements ICommentService {
     }
 
     @Override
-    public Page<Comment> findByEventDate(LocalDate eventDate, Pageable pageable) {
-        return commentRepository.findByEventDate(eventDate, pageable);
+    public Page<Comment> findByFeedbackDate(LocalDate eventDate, Pageable pageable) {
+        return commentRepository.findByFeedbackDate(eventDate, pageable);
     }
 
     @Override
@@ -37,12 +40,26 @@ public class CommentService implements ICommentService {
     }
 
     @Override
-    public void save(Comment object) {
-        commentRepository.save(object);
+    public void save(Comment comment) throws BadWordsException {
+        if (isContainBadWord(comment)) {
+            throw new BadWordsException();
+        }
+            commentRepository.save(comment);
     }
 
     @Override
     public void delete(Long id) {
         commentRepository.deleteById(id);
+    }
+
+    private boolean isContainBadWord(Comment comment) {
+        boolean containBadWord = false;
+        for (String badWord : BAD_WORD) {
+            if (comment.getFeedback().toLowerCase().contains(badWord.toLowerCase())) {
+                containBadWord = true;
+                break;
+            }
+        }
+        return containBadWord;
     }
 }

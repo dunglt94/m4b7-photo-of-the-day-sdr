@@ -4,6 +4,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "comment")
@@ -21,21 +22,15 @@ public class Comment {
 
     private int likes;
 
-    @DateTimeFormat(pattern = "yyyy-MM-đ")
-    private LocalDate eventDate;
+    private LocalDate feedbackDate;
+
+    private LocalDateTime feedbackDateTime;
 
     public Comment() {
-        this.eventDate = LocalDate.now();
+        this.feedbackDate = LocalDate.now();
+        this.feedbackDateTime = LocalDateTime.now();
     }
 
-    public Comment(Long id, int point, String author, String feedback, int likes) {
-        this.id = id;
-        this.point = point;
-        this.author = author;
-        this.feedback = feedback;
-        this.likes = likes;
-        this.eventDate = LocalDate.now();
-    }
 
     public Long getId() {
         return id;
@@ -77,11 +72,20 @@ public class Comment {
         this.likes = likes;
     }
 
-    public LocalDate getEventDate() {
-        return eventDate;
+    public LocalDate getFeedbackDate() {
+        return feedbackDate;
     }
 
-    public void setEventDate(LocalDate eventDate) {
-        this.eventDate = eventDate;
+    public void setFeedbackDate(LocalDate feedbackDate) {
+        this.feedbackDate = feedbackDate;
     }
+
+    public LocalDateTime getFeedbackDateTime() {
+        return feedbackDateTime;
+    }
+
+    public void setFeedbackDateTime(LocalDateTime feedbackDateTime) {
+        this.feedbackDateTime = feedbackDateTime;
+    }
+
 }

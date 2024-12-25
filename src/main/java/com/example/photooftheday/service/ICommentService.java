@@ -9,5 +9,5 @@ import java.time.LocalDate;
 public interface ICommentService extends IGeneratedService<Comment>{
     Page<Comment> findAll(Pageable pageable);
 
-    Page<Comment> findByEventDate(LocalDate eventDate, Pageable pageable);
+    Page<Comment> findByFeedbackDate(LocalDate eventDate, Pageable pageable);
 }
